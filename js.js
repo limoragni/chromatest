@@ -11,42 +11,42 @@ pause.addEventListener('click', function(){
 })
 
 // declare our variables
-var seriously, // the main object that holds the entire composition
+// var seriously, // the main object that holds the entire composition
  
 
-seriously = new Seriously();
+// seriously = new Seriously();
 
-var chroma = seriously.effect("chroma");
-var channels = seriously.effect("channels");
-var reformat = seriously.transform('reformat');
-var target = seriously.target('#canvas');
+// var chroma = seriously.effect("chroma");
+// var channels = seriously.effect("channels");
+// var reformat = seriously.transform('reformat');
+// var target = seriously.target('#canvas');
 
-// var target2 = seriously.target('#canvas2');
+// // var target2 = seriously.target('#canvas2');
 
-// Create a source object by passing a CSS query string.
-var video = seriously.source('#video');
+// // Create a source object by passing a CSS query string.
+// var video = seriously.source('#video');
 
 
-reformat.source = video;
-reformat.width = 1440;
-reformat.height = 800;
-reformat.mode = 'contain';
+// reformat.source = video;
+// reformat.width = 1440;
+// reformat.height = 800;
+// reformat.mode = 'contain';
 
-chroma.source = reformat;
+// chroma.source = reformat;
 
-chroma.balance = "#chroma-balance";
-chroma.weight = "#chroma-weight";
-chroma.clipBlack = "#chroma-clipB";
-chroma.clipWhite = "#chroma-clipW";
+// chroma.balance = "#chroma-balance";
+// chroma.weight = "#chroma-weight";
+// chroma.clipBlack = "#chroma-clipB";
+// chroma.clipWhite = "#chroma-clipW";
 
-chroma.screen = '#80ea6a';
+// chroma.screen = '#80ea6a';
 
-channels.source = reformat;
-channels.alphaSource = chroma;
+// channels.source = reformat;
+// channels.alphaSource = chroma;
 
-target.source = channels;
+// target.source = channels;
 
-seriously.go();
+// seriously.go();
 
 
 
