@@ -10,12 +10,12 @@
 }
 
 #canvas{
-	position: absolute;
+	float: left;
 	top:0px;
 	z-index: 9000;
 }
 #canvas2{
-	position: absolute;
+	float:left;
 	top:0px;
 	z-index: 8000;
 }

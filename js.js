@@ -5,38 +5,47 @@ play.addEventListener('click', function(){
 	videoControl.play();
 })
 
+jsfeat.matrix_t.prototype.copyToImageDataU8C1 =
+    function (dstImageData) {
+        var width = dstImageData.width;
+        var height = dstImageData.height;
+        var dst = dstImageData.data;
+        var src = this.data;
+        var r, c, v, dstOffset;
+        for (r = 0; r < height; r++) {
+            for (c = 0; c < width; c++) {
+                v = src[(r * width) + c];
+                dstOffset = (r * width * 4) + (c * 4);
+                dst[dstOffset + 0] = v; // R
+                dst[dstOffset + 1] = v; // G
+                dst[dstOffset + 2] = v; // B
+                dst[dstOffset + 3] = 255; // A
+            }
+        }
+    };
+
 pause.addEventListener('click', function(){
 	videoControl.pause();
 
     var canvas2 = document.getElementById("canvas2");
     var context = canvas2.getContext('2d');
-
-    // var data_type = jsfeat.U8_t | jsfeat.C1_t;
-    // var my_matrix = new jsfeat.matrix_t(800, 640, data_type);
-
-    // context.drawImage(video, 0, 0, 800, 640);
-
-    // var image_data = context.getImageData(0, 0, 800, 640);
-     
-    // var canny = new jsfeat.matrix_t(800, 640, jsfeat.U8_t | jsfeat.C1_t);
-    // jsfeat.imgproc.canny(image_data.data, canny, 0, 200);
-
-    // console.log(canny);
-
-
-
+    canvas2.style.zIndex = "-100";
 
         console.log(videoControl);
         var width = videoControl.width;
         var height = videoControl.height;
         context.drawImage(videoControl, 0, 0, width, height);
-        var image_data = context.getImageData(1,1, width, height);
-        console.log(image_data);
+        var imageData = context.getImageData(0,0, width, height);
+        console.log(imageData);
          
         var gray_img = new jsfeat.matrix_t(width, height, jsfeat.U8_t | jsfeat.C1_t);
-        console.log(gray_img)
+        var canny = new jsfeat.matrix_t(width, height, jsfeat.U8C1_t);
         var code = jsfeat.COLOR_RGBA2GRAY;
-        jsfeat.imgproc.grayscale(image_data.data, width, height, gray_img, code);
+        var gray = jsfeat.imgproc.grayscale(imageData.data, width, height, gray_img, code);
+        jsfeat.imgproc.canny(gray_img, canny, 50, 200);
+
+        canny.copyToImageDataU8C1(imageData);
+        context.putImageData(imageData, 0, 0);
 
         var img = document.getElementById("image");
         img.src = canvas2.toDataURL();  
