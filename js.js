@@ -8,6 +8,17 @@ play.addEventListener('click', function(){
 
 pause.addEventListener('click', function(){
 	videoControl.pause();
+
+    var canvas2 = document.getElementById("canvas2");
+    var context = canvas2.getContext('2d');
+
+    context.drawImage(videoControl,0,0,1440,800);
+    context.crossOrigin ="Anonymous";
+    var data = context.getImageData(0,0,1440,800);
+
+    var img = document.getElementById("image");
+    img.src = canvas2.toDataURL();
+
 })
 
 // declare our variables
@@ -48,13 +59,12 @@ pause.addEventListener('click', function(){
 
 // seriously.go();
 
-
-
-
 var clicks = 0;
 var lastClick = [0, 0];
 
 document.getElementById('canvas').addEventListener('click', drawLine, false);
+
+
 
 function getCursorPosition(e) {
     var x;

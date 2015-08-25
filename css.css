@@ -1,0 +1,21 @@
+#image{
+	float:left;
+}
+#video-container{
+	height: 800px;
+}
+#video {
+	position: absolute;
+	top:0px;
+}
+
+#canvas{
+	position: absolute;
+	top:0px;
+	z-index: 9000;
+}
+#canvas2{
+	position: absolute;
+	top:0px;
+	z-index: 8000;
+}
