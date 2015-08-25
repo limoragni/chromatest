@@ -1,4 +1,3 @@
-var play = document.getElementById('play');
 var pause = document.getElementById('pause');
 var videoControl = document.getElementById('video');
 
@@ -12,14 +11,39 @@ pause.addEventListener('click', function(){
     var canvas2 = document.getElementById("canvas2");
     var context = canvas2.getContext('2d');
 
-    context.drawImage(videoControl,0,0,1440,800);
-    context.crossOrigin ="Anonymous";
-    var data = context.getImageData(0,0,1440,800);
+    // var data_type = jsfeat.U8_t | jsfeat.C1_t;
+    // var my_matrix = new jsfeat.matrix_t(800, 640, data_type);
 
-    var img = document.getElementById("image");
-    img.src = canvas2.toDataURL();
+    // context.drawImage(video, 0, 0, 800, 640);
 
-})
+    // var image_data = context.getImageData(0, 0, 800, 640);
+     
+    // var canny = new jsfeat.matrix_t(800, 640, jsfeat.U8_t | jsfeat.C1_t);
+    // jsfeat.imgproc.canny(image_data.data, canny, 0, 200);
+
+    // console.log(canny);
+
+
+
+
+        console.log(videoControl);
+        var width = videoControl.width;
+        var height = videoControl.height;
+        context.drawImage(videoControl, 0, 0, width, height);
+        var image_data = context.getImageData(1,1, width, height);
+        console.log(image_data);
+         
+        var gray_img = new jsfeat.matrix_t(width, height, jsfeat.U8_t | jsfeat.C1_t);
+        console.log(gray_img)
+        var code = jsfeat.COLOR_RGBA2GRAY;
+        jsfeat.imgproc.grayscale(image_data.data, width, height, gray_img, code);
+
+        var img = document.getElementById("image");
+        img.src = canvas2.toDataURL();  
+
+    
+
+});
 
 // declare our variables
 // var seriously, // the main object that holds the entire composition
