@@ -46,14 +46,11 @@ pause.addEventListener('click', function(){
         jsfeat.imgproc.grayscale(imageData.data, width, height, gray_img, code);
         jsfeat.imgproc.canny(gray_img, canny, 60, 200);
 
-        console.log(canny);
+        var kernel_size = 5
+        var buf = kernel_size + width;
+        filter = [[1,1,1],[1,1,1],[1,1,1]];
 
-        var f = [[0,0,0],[0,0,0],[0,0,0]];
-        var ks = 3;
-        var hk = 1;
-        var buf = new jsfeat.matrix_t(width, height, jsfeat.U8C1_t);
-
-        convolution(buf,canny.data,blurred.data,width,height,f,ks,hk);
+        convolution(buf,canny.data,blurred.data,width,height,filter,kernel_size,3);
         console.log(blurred);
 
         blurred.copyToImageDataU8C1(imageData);
@@ -64,7 +61,7 @@ pause.addEventListener('click', function(){
 
 
 var convolution = function(buf, src_d, dst_d, w, h, filter, kernel_size, half_kernel) {
-    var i=0,j=0,k=0,sp=0,dp=0,sum=0,sum1=0,sum2=0,sum3=0,f0=filter[0],fk=0;
+    var i=0,j=0,k=0,sp=0,dp=0,sum=0.0,sum1=0.0,sum2=0.0,sum3=0.0,f0=filter[0],fk=0.0;
     var w2=w<<1,w3=w*3,w4=w<<2;
     // hor pass
     for (; i < h; ++i) { 
@@ -95,17 +92,17 @@ var convolution = function(buf, src_d, dst_d, w, h, filter, kernel_size, half_ke
                 sum2 += buf[k + j+2] * fk;
                 sum3 += buf[k + j+3] * fk;
             }
-            dst_d[dp+j] = Math.min(sum >> 8, 255);
-            dst_d[dp+j+1] = Math.min(sum1 >> 8, 255);
-            dst_d[dp+j+2] = Math.min(sum2 >> 8, 255);
-            dst_d[dp+j+3] = Math.min(sum3 >> 8, 255);
+            dst_d[dp+j] = sum;
+            dst_d[dp+j+1] = sum1;
+            dst_d[dp+j+2] = sum2;
+            dst_d[dp+j+3] = sum3;
         }
         for (; j < w; ++j) {
             sum = buf[j] * f0;
             for (k = 1; k < kernel_size; ++k) {
                 sum += buf[k + j] * filter[k];
             }
-            dst_d[dp+j] = Math.min(sum >> 8, 255);
+            dst_d[dp+j] = sum;
         }
         sp += w;
         dp += w;
@@ -142,20 +139,20 @@ var convolution = function(buf, src_d, dst_d, w, h, filter, kernel_size, half_ke
                 sum2 += buf[k + j+2] * fk;
                 sum3 += buf[k + j+3] * fk;
             }
-            dst_d[dp] = Math.min(sum >> 8, 255);
-            dst_d[dp+w] = Math.min(sum1 >> 8, 255);
-            dst_d[dp+w2] = Math.min(sum2 >> 8, 255);
-            dst_d[dp+w3] = Math.min(sum3 >> 8, 255);
+            dst_d[dp] = sum;
+            dst_d[dp+w] = sum1;
+            dst_d[dp+w2] = sum2;
+            dst_d[dp+w3] = sum3;
         }
         for (; j < h; ++j, dp+=w) {
             sum = buf[j] * f0;
             for (k = 1; k < kernel_size; ++k) {
                 sum += buf[k + j] * filter[k];
             }
-            dst_d[dp] = Math.min(sum >> 8, 255);
+            dst_d[dp] = sum;
         }
     }
-}
+    }
 
 // declare our variables
 // var seriously, // the main object that holds the entire composition
