@@ -1,6 +1,3 @@
-#image{
-	float:left;
-}
 #video-container{
 	height: 800px;
 }
@@ -15,7 +12,7 @@
 	z-index: 9000;
 }
 #canvas2{
-	float:left;
+	float: left;
 	top:0px;
 	z-index: 8000;
 }
