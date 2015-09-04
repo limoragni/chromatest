@@ -7,8 +7,13 @@
 
 <body>
   <canvas id="canvas" width="800" height="640"></canvas>
+  <canvas id="canvas2" width="800" height="640"></canvas>
+
   <video id="video" width="800" src="test.mp4" height="640" controls>
   </video>
+
+  <button id="play">Play</button>
+  <button id="pause">Pause</button>
 </body>
 
 <script>
@@ -18,8 +23,8 @@
 window.onload = main;
 
 function main() {
-  var image = new Image();
-  image.src = "leaf.png"; 
+  // var image = new Image();
+  // image.src = "leaf.png"; 
   var video = document.getElementById("video");
   video.onloadeddata = function() {
     render(video);
@@ -186,4 +191,5 @@ void main() {
 }
 </script>
 <script type="text/javascript" src="webgl-utils.js"></script>
+<script type="text/javascript" src="js.js"></script>
 </html>

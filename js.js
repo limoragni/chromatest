@@ -75,6 +75,7 @@ function getCursorPosition(e) {
 
 function drawLine(e) {
 	console.log("XX")
+
     context = document.getElementById('canvas2').getContext('2d');
 
     x = getCursorPosition(e)[0] - this.offsetLeft;

@@ -1,18 +1,13 @@
-#video-container{
-	height: 800px;
-}
 #video {
-	position: absolute;
+	position: relative;
 	top:0px;
 }
 
 #canvas{
-	float: left;
-	top:0px;
-	z-index: 9000;
+	position:relative;
 }
-#canvas2{
-	float: left;
+#canvas2 {
+	position:relative;
 	top:0px;
-	z-index: 8000;
 }
+
