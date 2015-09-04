@@ -7,8 +7,7 @@
 
 <body>
   <canvas id="canvas" width="800" height="640"></canvas>
-  <video id="video" width="800" height="640" controls>
-      <source src="test.mp4" type="video/mp4">
+  <video id="video" width="800" src="test.mp4" height="640" controls>
   </video>
 </body>
 
@@ -22,7 +21,7 @@ function main() {
   var image = new Image();
   image.src = "leaf.png"; 
   var video = document.getElementById("video");
-  image.onload = function() {
+  video.onloadeddata = function() {
     render(video);
   }
 }
@@ -76,7 +75,6 @@ function render(image) {
 
   var texture = gl.createTexture();
   gl.bindTexture(gl.TEXTURE_2D, texture);
-
   // Set the parameters so we can render any size image.
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
