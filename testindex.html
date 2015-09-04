@@ -7,7 +7,9 @@
 
 <body>
   <canvas id="canvas" width="800" height="640"></canvas>
-
+  <video id="video" width="800" height="640" controls>
+      <source src="test.mp4" type="video/mp4">
+  </video>
 </body>
 
 <script>
@@ -19,8 +21,9 @@ window.onload = main;
 function main() {
   var image = new Image();
   image.src = "leaf.png"; 
+  var video = document.getElementById("video");
   image.onload = function() {
-    render(image);
+    render(video);
   }
 }
 
@@ -57,7 +60,7 @@ function render(image) {
  ];
  gl.uniform1fv(kernelLocation, edgeDetectKernel);
  gl.uniform1f(kernelWeightLocation, computeKernelWeight(edgeDetectKernel));
- 
+
   // provide texture coordinates for the rectangle.
   var texCoordBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
